@@ -4,6 +4,15 @@ import sys
 import random
 
 
+def shuffle(count):
+    for i in range(count):
+         rand_num[i] = random.randint(0, count // 2 - 1)
+         if i % 2 == 0:
+             out[rand_num[i-1]], out[rand_num[i]] = out[rand_num[i]], out[rand_num[i-1]]
+
+    return out
+
+
 # 標準入力の取得
 inpt = sys.stdin.read()
 print(inpt)
@@ -11,22 +20,21 @@ print(inpt)
 # 行数を取得
 count = len(inpt)
 out = []
+inpt_list = []
 
 for line in inpt:
     if line != "\n":
+        inpt_list.append(line)
         out.append(line)
 
 rand_num = [0] * count
 
-for i in range(count):
-    rand_num[i] = random.randint(0, count / 2 - 1)
-    if i % 2 == 0:
-       #print(f"rand_num{i}: {rand_num[i]}")
-       out[rand_num[i-1]], out[rand_num[i]] = out[rand_num[i]], out[rand_num[i-1]]
+if count // 2 > 1:
+    while out == inpt_list:#True:
+        shuffle(count)
+       # if out != inpt_list:
+        #    break
 
-#print("count: " ,count)
-#print("rand_num: " ,rand_num)
-#print(out)
 
 for i in range(count // 2):
     print(out[i])
