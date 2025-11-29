@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 # SPDX-FileCopyrightText: 2025 Shogo Yamashita
+# SPDX-License-Identifier: MIT
+
 import sys
 import random
 
