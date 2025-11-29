@@ -4,6 +4,7 @@ import sys
 import random
 
 
+# ランダムに入れ替えをする関数
 def shuffle(count):
     for i in range(count):
          rand_num[i] = random.randint(0, count // 2 - 1)
@@ -13,27 +14,23 @@ def shuffle(count):
     return out
 
 
-# 行数を取得
-inpt_list = []
+inpt = []
 out = []
 count = 0
 
+# 標準入力を配列にする
 for line in sys.stdin:
-    print(line.rstrip("\n"))
     count += 2
-    inpt_list.append(line.rstrip("\n"))
+    inpt.append(line.rstrip("\n"))
     out.append(line.rstrip("\n"))
-
-#print(count)
-#print(out)
-print("")
 
 rand_num = [0] * count
 
+# 入力と出力を同一にしないための処理
 if count // 2 > 1:
-    while out == inpt_list:
+    while out == inpt:
         shuffle(count)
 
-
+# 出力
 for i in range(count // 2):
     print(out[i])
