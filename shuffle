@@ -4,19 +4,29 @@ import sys
 import random
 
 
-def shuffle(rn):
-    return random.randint(0, rn)
+# 標準入力の取得
+inpt = sys.stdin.read()
+print(inpt)
 
-count = 0
+# 行数を取得
+count = len(inpt)
+out = []
 
-# 改行文字を除いた文字数をカウント
-for line in sys.stdin:
-    count+=1
+for line in inpt:
+    if line != "\n":
+        out.append(line)
 
-rand_num = [0] * (count * 2)
+rand_num = [0] * count
 
-for i in range(count * 2):
-    rand_num[i] = shuffle(count-1)
-    print(f"rand_num%d: %d" % (i, rand_num[i]))
+for i in range(count):
+    rand_num[i] = random.randint(0, count / 2 - 1)
+    if i % 2 == 0:
+       #print(f"rand_num{i}: {rand_num[i]}")
+       out[rand_num[i-1]], out[rand_num[i]] = out[rand_num[i]], out[rand_num[i-1]]
 
-print("count: ",count)
+#print("count: " ,count)
+#print("rand_num: " ,rand_num)
+#print(out)
+
+for i in range(count // 2):
+    print(out[i])
