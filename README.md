@@ -1,9 +1,14 @@
 # shuffleコマンド
+![test](https://github.com/ShogoYamashita1/robosys2025_assignment_1/actions/workflows/test.yml/badge.svg)
 
 標準入力から読み込んだ要素をランダムに入れ替えて出力するコマンドです。
 
 ## 必要なソフトウェア
 - Python
+  - テスト済みバージョン: 3.7〜3.14
+
+## テスト環境
+ - Ubuntu 24.04 LTS
 
 ## 使い方
 ```bash
