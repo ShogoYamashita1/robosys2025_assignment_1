@@ -1,0 +1,20 @@
+#!/usr/bin/python3
+# SPDX-FileCopyrightText: 2025 Shogo Yamashita
+import sys
+import random
+
+
+def shuffle(c):
+    return random.randint(0, c)
+
+out = [1,1,1]
+count = 0
+#lenge = len(sys.stdin.read())
+
+for line in sys.stdin:
+    count+=1
+
+out = shuffle(count-1)
+print("out:" ,out)
+
+print("count: ",count)
