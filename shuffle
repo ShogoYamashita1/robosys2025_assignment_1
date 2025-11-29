@@ -13,27 +13,26 @@ def shuffle(count):
     return out
 
 
-# 標準入力の取得
-inpt = sys.stdin.read()
-print(inpt)
-
 # 行数を取得
-count = len(inpt)
-out = []
 inpt_list = []
+out = []
+count = 0
 
-for line in inpt:
-    if line != "\n":
-        inpt_list.append(line)
-        out.append(line)
+for line in sys.stdin:
+    print(line.rstrip("\n"))
+    count += 2
+    inpt_list.append(line.rstrip("\n"))
+    out.append(line.rstrip("\n"))
+
+#print(count)
+#print(out)
+print("")
 
 rand_num = [0] * count
 
 if count // 2 > 1:
-    while out == inpt_list:#True:
+    while out == inpt_list:
         shuffle(count)
-       # if out != inpt_list:
-        #    break
 
 
 for i in range(count // 2):
