@@ -8,17 +8,33 @@ ng () {
 }
 
 res=0
-shuffle_out=0
 
 ### 要素チェック ###
-shuffle_out=$(seq 10 | ./shuffle | sort -n)
-test_input=$(seq 10 | sort -n)
-
+shuffle_out=$(./shuffle < input_test.txt | sort)
+test_input=$(sort input_test.txt)
 if [ "$shuffle_out" = "$test_input" ]; then
     res=0
 else
     ng "$LINENO"
 fi
+
+
+### 行数,単語数,バイト数  ###
+input_filesize=0
+shuffle_filesize=0
+
+input_filesize=$(wc < input_test.txt)
+shuffle_filesize=$(./shuffle < input_test.txt | wc)
+if [ "$input_filesize" = "$input_filesize" ]; then
+    res=0
+else
+    ng "$LINENO"
+fi
+
+
+### 変換されているかテスト ###
+diff -q <(./shuffle < input_test.txt) input_test.txt
+[ "$?" = 1 ] || ng "$LINENO"
 
 
 ### 通常入力 ###
