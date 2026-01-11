@@ -2,12 +2,17 @@
 # SPDX-FileCopyrightText: 2025 Shogo Yamashita
 # SPDX-License-Identifier: MIT
 
+### 異常終了関数 ###
+# テスト終了時にも表示できるようng_lineで失敗した行を記録
 ng () {
+    if [ "${1}" != 0 ]; then
         echo ${1}行目で失敗しました
         res=1
+    fi
 }
 
 res=0
+ng_line=0
 
 ### 要素チェック ###
 shuffle_out=$(./shuffle < input_test.txt | sort)
@@ -34,37 +39,43 @@ fi
 
 ### 変換されているかテスト ###
 diff -q <(./shuffle < input_test.txt) input_test.txt
-[ "$?" = 1 ] || ng "$LINENO"
+[ "$?" = 1 ] || { ng_line="$LINENO" ; ng "$ng_line"; }
 
 
 ### 通常入力 ###
-out=$(seq 5 | ./shuffle)
-[ "$?" = 0 ] || ng "$LINENO"
+seq 5 | ./shuffle
+[ "$?" = 0 ] || { ng_line="$LINENO" ; ng "$ng_line"; }
 
-out=$(echo "A\nB\nC\n" | ./shuffle)
-[ "$?" = 0 ] || ng "$LINENO"
+echo "A\nB\nC\n" | ./shuffle
+[ "$?" = 0 ] || { ng_line="$LINENO" ; ng "$ng_line"; }
 
 
 ### 特殊入力 ###
-out=$(echo "a\n\n1\n1.33\n" | ./shuffle)
-[ "$?" = 0 ] || ng "$LINENO"
+echo "a\n\n1\n1.33\n" | ./shuffle
+[ "$?" = 0 ] || { ng_line="$LINENO" ; ng "$ng_line"; }
 
-out=$(echo "A" | ./shuffle)
-[ "$?" = 0 ] || ng "$LINENO"
+echo "A" | ./shuffle
+[ "$?" = 0 ] || { ng_line="$LINENO" ; ng "$ng_line"; }
 
-out=$(echo a | ./shuffle)
-[ "$?" = 0 ] || ng "$LINENO"
+echo a | ./shuffle
+[ "$?" = 0 ] || { ng_line="$LINENO" ; ng "$ng_line"; }
 
-out=$(echo ? | ./shuffle)
-[ "$?" = 0 ] || ng "$LINENO"
+echo ? | ./shuffle
+[ "$?" = 0 ] || { ng_line="$LINENO" ; ng "$ng_line"; }
 
-out=$(echo @ | ./shuffle)
-[ "$?" = 0 ] || ng "$LINENO"
+echo @ | ./shuffle
+[ "$?" = 0 ] || { ng_line="$LINENO" ; ng "$ng_line"; }
 
-out=$(echo | ./shuffle)
-[ "$?" = 0 ] || ng "$LINENO"
+echo | ./shuffle
+[ "$?" = 0 ] || { ng_line="$LINENO" ; ng "$ng_line"; }
 
 
 ### テスト結果 ###
-[ "${res}" = 0 ] && echo OK
+ng "$ng_line"
+if [ "${res}" = 0 ]; then
+    echo -e "\e[32mAll test cases passed successfully.\e[0m"
+else
+    echo -e "\e[31mTest failed\e[0m"
+fi
+
 exit $res
