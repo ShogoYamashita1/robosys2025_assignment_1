@@ -1,5 +1,5 @@
 #!/bin/bash -xv
-# SPDX-FileCopyrightText: 2025 Shogo Yamashita
+# SPDX-FileCopyrightText: 2025-2026 Shogo Yamashita
 # SPDX-License-Identifier: MIT
 
 ### 異常終了関数 ###
